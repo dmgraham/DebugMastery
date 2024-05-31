@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply bg-black text-white;
+}
+
+@layer base {
+  :root {
+    --color-primary: 153 27 27;
+  }
+}

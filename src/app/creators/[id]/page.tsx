@@ -8,17 +8,24 @@ interface Creator {
   id: number;
   name: string;
   biography: string;
+  profileImage: string;
   bannerImage: string;
+  youtubeHandle: string;
+  twitterHandle?: string;
+  instagramHandle?: string;
 }
 
 const sampleCreator: Creator = {
   id: 1,
   name: "Theo - t3.gg",
+  profileImage:
+    "https://utfs.io/f/f7ec4fab-c964-4936-bef4-472f482e29db-gonife.jpg",
   biography: `Theo, renowned as T3.gg in the developer community on YouTube, is a dynamic content creator with a passion for simplifying complex coding concepts. With a knack for breaking down intricate technical topics into digestible pieces, Theo has garnered a loyal following among aspiring and seasoned developers alike. Through his engaging tutorials and walkthroughs, he empowers viewers to enhance their programming skills across various languages and frameworks. From beginner-friendly introductions to advanced coding techniques, Theo's channel serves as a valuable resource hub for anyone looking to dive into the world of software development.
 
 Beyond his tutorials, Theo fosters a vibrant community where developers can exchange ideas, troubleshoot challenges, and collaborate on projects. His genuine enthusiasm for coding shines through in every video, inspiring viewers to embrace the joy of problem-solving and continuous learning. Whether you're a novice coder looking to get started or an experienced developer seeking to expand your skill set, Theo's channel offers a welcoming space to embark on your coding journey and unlock your full potential.`,
   bannerImage:
     "https://utfs.io/f/5685b4ae-a679-408f-837a-32d1573c255f-n4g0bh.png",
+  youtubeHandle: "t3dotgg",
 };
 
 const mockdata: VideoType[] = [

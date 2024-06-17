@@ -18,3 +18,14 @@ model Post {
 
     @@index([name])
 }
+
+model DebugMastery_Creator {
+    id                  Int                   @id @default(autoincrement())
+    name                String                @unique @db.VarChar(100)
+    biography           String                @db.VarChar(1500)
+    profileImage        String
+    bannerImage         String
+    youtubeHandle       String                @unique @db.VarChar(30)
+    twitterHandle       String?               @unique @db.VarChar(15)
+    instagramHandle     String?               @unique @db.VarChar(30)
+}

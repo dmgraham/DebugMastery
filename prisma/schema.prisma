@@ -28,4 +28,16 @@ model DebugMastery_Creator {
     youtubeHandle       String                @unique @db.VarChar(30)
     twitterHandle       String?               @unique @db.VarChar(15)
     instagramHandle     String?               @unique @db.VarChar(30)
+    DebugMastery_Videos DebugMastery_Videos[]
+}
+
+model DebugMastery_Videos {
+    id                     Int                  @id @default(autoincrement())
+    title                  String               @db.VarChar(100)
+    thumbnail              String
+    videoPreview           String
+    url                    String
+    views                  Int
+    creator                DebugMastery_Creator @relation(fields: [debugMastery_CreatorId], references: [id])
+    debugMastery_CreatorId Int
 }

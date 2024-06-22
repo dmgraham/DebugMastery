@@ -1,3 +1,4 @@
+"use client";
 import VideoItem from "./VideoItem";
 
 function VideosCarousel() {

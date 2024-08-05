@@ -6,11 +6,11 @@ This is a project to highlight content creators for developers.
 
 <table>
   <tr>
-    <td><strong>Front End</strong></td>
+    <td><strong>Frontend</strong></td>
     <td><span style="color:lightblue;">React.js</span>, Next.js (App Router), HTML, Tailwind CSS</td>
   </tr>
   <tr>
-    <td><strong>Back End</strong></td>
+    <td><strong>Backend</strong></td>
     <td>PostgreSQL, Prisma, tRPC</td>
   </tr>
   <tr>

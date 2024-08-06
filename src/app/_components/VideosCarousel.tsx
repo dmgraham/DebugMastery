@@ -1,5 +1,13 @@
 "use client";
 import VideoItem from "./VideoItem";
+import mockdata from "./videoCarouselMockData";
+
+const firstItem = mockdata[0]!;
+const secondItem = mockdata[1]!;
+const thirdItem = mockdata[2]!;
+const fourthItem = mockdata[3]!;
+
+const finalItem = mockdata[4]!;
 
 function VideosCarousel() {
   return (
@@ -25,7 +33,7 @@ function VideosCarousel() {
           </svg>
         </button>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 ">
           <VideoItem props={firstItem} />
           <VideoItem props={secondItem} />
           <VideoItem props={thirdItem} />
@@ -35,6 +43,19 @@ function VideosCarousel() {
           <VideoItem props={secondItem} />
           <VideoItem props={thirdItem} />
           <VideoItem props={fourthItem} />
+
+          <VideoItem props={firstItem} />
+          <VideoItem props={secondItem} />
+          <VideoItem props={thirdItem} />
+          <VideoItem props={fourthItem} />
+
+          <VideoItem props={firstItem} />
+          <VideoItem props={secondItem} />
+          <VideoItem props={thirdItem} />
+          <VideoItem props={fourthItem} />
+
+          <VideoItem props={firstItem} />
+          <VideoItem props={finalItem} />
         </div>
       </div>
     </div>

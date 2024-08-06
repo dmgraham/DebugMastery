@@ -39,7 +39,7 @@ function VideosCarousel() {
       <h2 className="p-3 text-3xl font-bold">Popular Videos</h2>
 
       <div className="relative">
-        <button className="duration-50 absolute left-0 flex h-full w-[3%] items-center justify-center text-[transparent] transition-colors hover:bg-black/80 hover:text-white">
+        <button className="duration-50 absolute left-0 z-10 flex h-full w-[3%] items-center justify-center text-[transparent] transition-colors hover:bg-black/80 hover:text-white">
           <svg width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
             <path
               fill-rule="evenodd"
@@ -48,7 +48,7 @@ function VideosCarousel() {
           </svg>
         </button>
 
-        <button className="duration-50 absolute right-0 flex h-full w-[3%] items-center justify-center text-[transparent] transition-colors hover:bg-black/80 hover:text-white">
+        <button className="duration-50 absolute right-0 z-10 flex h-full w-[3%] items-center justify-center text-[transparent] transition-colors hover:bg-black/80 hover:text-white">
           <svg width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
             <path
               fill-rule="evenodd"
@@ -57,7 +57,7 @@ function VideosCarousel() {
           </svg>
         </button>
 
-        <div className="flex gap-2 ">
+        <div className="flex flex-1 gap-0">
           <VideoItem props={firstItem} />
           <VideoItem props={secondItem} />
           <VideoItem props={thirdItem} />

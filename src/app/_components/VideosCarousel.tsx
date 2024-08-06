@@ -32,7 +32,7 @@ function VideosCarousel() {
   const itemsOnScreenCount = maxVideosAtBreakpoints[screenBreakpoint];
 
   const totalPadding = 17;
-  let itemWidth = (screenWidth - totalPadding) / itemsOnScreenCount;
+  const itemWidth = (screenWidth - totalPadding) / itemsOnScreenCount;
 
   const totalWidth = totalItems * itemWidth;
   const maxWidth = totalWidth - itemWidth * itemsOnScreenCount;

@@ -1,15 +1,39 @@
 "use client";
 import VideoItem from "./VideoItem";
 import mockdata from "./videoCarouselMockData";
+import useScreenWidth from "../utils/useScreenWidth";
+import getScreenBreakpoint, {
+  Breakpoint,
+} from "../utils/helper/getScreenBreakpoint";
 
 const firstItem = mockdata[0]!;
 const secondItem = mockdata[1]!;
 const thirdItem = mockdata[2]!;
 const fourthItem = mockdata[3]!;
-
 const finalItem = mockdata[4]!;
 
+const maxVideosAtBreakpoints: Record<Breakpoint, number> = {
+  xs: 2, // 50.00%
+  sm: 2, // 50.00%
+  md: 3, // 33.33%
+  lg: 4, // 25%
+  xl: 5, // 20%
+  "2xl": 6, // 16.67%
+};
+
 function VideosCarousel() {
+  const screenWidth = useScreenWidth();
+  const totalItems = 18;
+  const screenBreakpoint = getScreenBreakpoint(screenWidth);
+
+  const itemsOnScreenCount = maxVideosAtBreakpoints[screenBreakpoint];
+
+  const totalPadding = 17;
+  let itemWidth = (screenWidth - totalPadding) / itemsOnScreenCount;
+
+  const totalWidth = totalItems * itemWidth;
+  const maxWidth = totalWidth - itemWidth * itemsOnScreenCount;
+
   return (
     <div className="w-full self-start">
       <h2 className="p-3 text-3xl font-bold">Popular Videos</h2>

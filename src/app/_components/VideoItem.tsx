@@ -6,7 +6,7 @@ interface VideoType {
 
 function VideoItem({ props }: { props: VideoType }) {
   return (
-    <div className="flex flex-col gap-2 ">
+    <div className="flex flex-[0_0_50.00%] flex-col gap-2 md:flex-[0_0_33.33%] lg:flex-[0_0_25.00%] xl:flex-[0_0_20.00%] 2xl:flex-[0_0_16.67%]">
       <img className="aspect-video w-72" src={props.thumbnail} />
 
       <div className="flex min-w-60 max-w-72 justify-between">

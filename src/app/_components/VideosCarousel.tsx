@@ -5,6 +5,7 @@ import useScreenWidth from "../utils/useScreenWidth";
 import getScreenBreakpoint, {
   Breakpoint,
 } from "../utils/helper/getScreenBreakpoint";
+import { useState } from "react";
 
 const firstItem = mockdata[0]!;
 const secondItem = mockdata[1]!;
@@ -22,6 +23,8 @@ const maxVideosAtBreakpoints: Record<Breakpoint, number> = {
 };
 
 function VideosCarousel() {
+  const [xTranslation, setXTranslation] = useState(0);
+
   const screenWidth = useScreenWidth();
   const totalItems = 18;
   const screenBreakpoint = getScreenBreakpoint(screenWidth);
@@ -33,6 +36,19 @@ function VideosCarousel() {
 
   const totalWidth = totalItems * itemWidth;
   const maxWidth = totalWidth - itemWidth * itemsOnScreenCount;
+
+  function MoveCarouselRight() {
+    setXTranslation((previousXTranslation) => {
+      let updatedXTranslation = previousXTranslation + itemWidth;
+      //if user is at the last item, go back to 0 at the beginning
+      if (previousXTranslation >= maxWidth) {
+        updatedXTranslation = 0;
+      }
+
+      updatedXTranslation = Math.min(maxWidth, updatedXTranslation);
+      return updatedXTranslation;
+    });
+  }
 
   return (
     <div className="w-full self-start">
@@ -48,7 +64,10 @@ function VideosCarousel() {
           </svg>
         </button>
 
-        <button className="duration-50 absolute right-0 z-10 flex h-full w-[3%] items-center justify-center text-[transparent] transition-colors hover:bg-black/80 hover:text-white">
+        <button
+          className="duration-50 absolute right-0 z-10 flex h-full w-[3%] items-center justify-center text-[transparent] transition-colors hover:bg-black/80 hover:text-white"
+          onClick={MoveCarouselRight}
+        >
           <svg width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
             <path
               fill-rule="evenodd"
@@ -57,7 +76,12 @@ function VideosCarousel() {
           </svg>
         </button>
 
-        <div className="flex flex-1 gap-0">
+        <div
+          className="flex flex-1 gap-0 transition-transform duration-300"
+          style={{
+            transform: `translateX(-${xTranslation}px)`,
+          }}
+        >
           <VideoItem props={firstItem} />
           <VideoItem props={secondItem} />
           <VideoItem props={thirdItem} />

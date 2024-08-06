@@ -49,13 +49,28 @@ function VideosCarousel() {
       return updatedXTranslation;
     });
   }
+  function MoveCarouselLeft() {
+    setXTranslation((previousXTranslation) => {
+      let updatedXTranslation = previousXTranslation - itemWidth;
+      //if user is at the first item, go back to end of the list
+      if (previousXTranslation === 0) {
+        updatedXTranslation = maxWidth;
+      }
+
+      updatedXTranslation = Math.max(0, updatedXTranslation);
+      return updatedXTranslation;
+    });
+  }
 
   return (
     <div className="w-full self-start">
       <h2 className="p-3 text-3xl font-bold">Popular Videos</h2>
 
       <div className="relative">
-        <button className="duration-50 absolute left-0 z-10 flex h-full w-[3%] items-center justify-center text-[transparent] transition-colors hover:bg-black/80 hover:text-white">
+        <button
+          className="duration-50 absolute left-0 z-10 flex h-full w-[3%] items-center justify-center text-[transparent] transition-colors hover:bg-black/80 hover:text-white"
+          onClick={MoveCarouselLeft}
+        >
           <svg width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
             <path
               fill-rule="evenodd"

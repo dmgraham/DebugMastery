@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { TRPCError } from "@trpc/server";
+import { inferRouterOutputs, TRPCError } from "@trpc/server";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 const PopularVideoLimit = 10;
@@ -43,3 +43,7 @@ export const creatorRouter = createTRPCRouter({
     return creatorVideos;
   }),
 });
+
+type RouterOutput = inferRouterOutputs<typeof creatorRouter>;
+type creatorVideoOutput = RouterOutput["getCreatorVideos"];
+export type { creatorVideoOutput };

@@ -10,15 +10,6 @@ export const creatorRouter = createTRPCRouter({
       where: {
         id: input,
       },
-      include: {
-        DebugMastery_Videos: {
-          select: {
-            title: true,
-            thumbnail: true,
-          },
-          take: PopularVideoLimit,
-        },
-      },
     });
 
     if (!creator)

@@ -2,10 +2,9 @@
 import VideoItem from "./VideoItem";
 import mockdata from "./videoCarouselMockData";
 import useScreenWidth from "../utils/useScreenWidth";
-import getScreenBreakpoint, {
-  Breakpoint,
-} from "../utils/helper/getScreenBreakpoint";
-import { useState } from "react";
+import getScreenBreakpoint, { Breakpoint } from "../utils/helper/getScreenBreakpoint";
+import { useState, use } from "react";
+import { creatorVideoOutput } from "~/server/api/routers/creator";
 
 const firstItem = mockdata[0]!;
 const secondItem = mockdata[1]!;
@@ -22,11 +21,19 @@ const maxVideosAtBreakpoints: Record<Breakpoint, number> = {
   "2xl": 6, // 16.67%
 };
 
-function VideosCarousel() {
+function VideosCarousel({ videos }: { videos: creatorVideoOutput | Promise<creatorVideoOutput> }) {
   const [xTranslation, setXTranslation] = useState(0);
 
+  let resolvedVideos: creatorVideoOutput;
+
+  if (videos instanceof Promise) {
+    resolvedVideos = use(videos);
+  } else {
+    resolvedVideos = videos;
+  }
+
   const screenWidth = useScreenWidth();
-  const totalItems = 18;
+  const totalItems = resolvedVideos.length;
   const screenBreakpoint = getScreenBreakpoint(screenWidth);
 
   const itemsOnScreenCount = maxVideosAtBreakpoints[screenBreakpoint];
@@ -97,7 +104,15 @@ function VideosCarousel() {
             transform: `translateX(-${xTranslation}px)`,
           }}
         >
-          <VideoItem props={firstItem} />
+          {resolvedVideos.map((video) => {
+            return (
+              <VideoItem
+                key={video.id}
+                props={{ title: video.title, thumbnail: video.thumbnail }}
+              />
+            );
+          })}
+          {/* <VideoItem props={firstItem} />
           <VideoItem props={secondItem} />
           <VideoItem props={thirdItem} />
           <VideoItem props={fourthItem} />
@@ -118,7 +133,7 @@ function VideosCarousel() {
           <VideoItem props={fourthItem} />
 
           <VideoItem props={firstItem} />
-          <VideoItem props={finalItem} />
+          <VideoItem props={finalItem} /> */}
         </div>
       </div>
     </div>

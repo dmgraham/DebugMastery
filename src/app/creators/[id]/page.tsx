@@ -1,4 +1,5 @@
 import VideosCarousel from "~/app/_components/VideosCarousel";
+import { api } from "~/trpc/server";
 
 interface Creator {
   id: number;
@@ -14,17 +15,17 @@ interface Creator {
 const sampleCreator: Creator = {
   id: 1,
   name: "Theo - t3.gg",
-  profileImage:
-    "https://utfs.io/f/f7ec4fab-c964-4936-bef4-472f482e29db-gonife.jpg",
+  profileImage: "https://utfs.io/f/f7ec4fab-c964-4936-bef4-472f482e29db-gonife.jpg",
   biography: `Theo, renowned as T3.gg in the developer community on YouTube, is a dynamic content creator with a passion for simplifying complex coding concepts. With a knack for breaking down intricate technical topics into digestible pieces, Theo has garnered a loyal following among aspiring and seasoned developers alike. Through his engaging tutorials and walkthroughs, he empowers viewers to enhance their programming skills across various languages and frameworks. From beginner-friendly introductions to advanced coding techniques, Theo's channel serves as a valuable resource hub for anyone looking to dive into the world of software development.
 
 Beyond his tutorials, Theo fosters a vibrant community where developers can exchange ideas, troubleshoot challenges, and collaborate on projects. His genuine enthusiasm for coding shines through in every video, inspiring viewers to embrace the joy of problem-solving and continuous learning. Whether you're a novice coder looking to get started or an experienced developer seeking to expand your skill set, Theo's channel offers a welcoming space to embark on your coding journey and unlock your full potential.`,
-  bannerImage:
-    "https://utfs.io/f/5685b4ae-a679-408f-837a-32d1573c255f-n4g0bh.png",
+  bannerImage: "https://utfs.io/f/5685b4ae-a679-408f-837a-32d1573c255f-n4g0bh.png",
   youtubeHandle: "t3dotgg",
 };
 
-function page({ params }: { params: { id: string } }) {
+async function page({ params }: { params: { id: string } }) {
+  const creatorVideos = api.creator.getCreatorVideos(parseInt(params.id));
+
   return (
     <div className="relative flex h-full flex-col items-center overflow-x-hidden">
       {/* bg image */}
@@ -40,7 +41,7 @@ function page({ params }: { params: { id: string } }) {
       </div>
 
       <div className="pb-[30%]"></div>
-      <VideosCarousel />
+      <VideosCarousel videos={creatorVideos} />
       <img
         className="my-20 h-48 w-48 rounded-full border border-gray-500"
         src={sampleCreator.profileImage}
@@ -48,15 +49,10 @@ function page({ params }: { params: { id: string } }) {
       />
 
       <h4 className="mb-3 text-3xl">About {sampleCreator.name}</h4>
-      <p className="max-w-[60ch] whitespace-pre-line text-center">
-        {sampleCreator.biography}
-      </p>
+      <p className="max-w-[60ch] whitespace-pre-line text-center">{sampleCreator.biography}</p>
       <div className="my-10 flex h-56 items-center gap-2">
         <p> Visit Channel</p>
-        <a
-          href={`//www.youtube.com/@${sampleCreator.youtubeHandle}`}
-          target="_blank"
-        >
+        <a href={`//www.youtube.com/@${sampleCreator.youtubeHandle}`} target="_blank">
           <svg width="64" height="64" fill="red" viewBox="0 0 16 16">
             <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z" />
           </svg>

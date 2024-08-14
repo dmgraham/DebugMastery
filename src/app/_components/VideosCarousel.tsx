@@ -112,28 +112,6 @@ function VideosCarousel({ videos }: { videos: creatorVideoOutput | Promise<creat
               />
             );
           })}
-          {/* <VideoItem props={firstItem} />
-          <VideoItem props={secondItem} />
-          <VideoItem props={thirdItem} />
-          <VideoItem props={fourthItem} />
-
-          <VideoItem props={firstItem} />
-          <VideoItem props={secondItem} />
-          <VideoItem props={thirdItem} />
-          <VideoItem props={fourthItem} />
-
-          <VideoItem props={firstItem} />
-          <VideoItem props={secondItem} />
-          <VideoItem props={thirdItem} />
-          <VideoItem props={fourthItem} />
-
-          <VideoItem props={firstItem} />
-          <VideoItem props={secondItem} />
-          <VideoItem props={thirdItem} />
-          <VideoItem props={fourthItem} />
-
-          <VideoItem props={firstItem} />
-          <VideoItem props={finalItem} /> */}
         </div>
       </div>
     </div>

@@ -108,7 +108,7 @@ function VideosCarousel({ videos }: { videos: creatorVideoOutput | Promise<creat
             return (
               <VideoItem
                 key={video.id}
-                props={{ title: video.title, thumbnail: video.thumbnail }}
+                props={{ id: video.id, title: video.title, thumbnail: video.thumbnail }}
               />
             );
           })}

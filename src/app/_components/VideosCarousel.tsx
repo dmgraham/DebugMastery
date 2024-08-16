@@ -3,7 +3,7 @@ import VideoItem from "./VideoItem";
 import mockdata from "./videoCarouselMockData";
 import useScreenWidth from "../utils/useScreenWidth";
 import getScreenBreakpoint, { Breakpoint } from "../utils/helper/getScreenBreakpoint";
-import { useState, use } from "react";
+import { useState, use, Suspense } from "react";
 import { creatorVideoOutput } from "~/server/api/routers/creator";
 
 const firstItem = mockdata[0]!;
@@ -22,6 +22,14 @@ const maxVideosAtBreakpoints: Record<Breakpoint, number> = {
 };
 
 function VideosCarousel({ videos }: { videos: creatorVideoOutput | Promise<creatorVideoOutput> }) {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <CarouselContent videos={videos} />
+    </Suspense>
+  );
+}
+
+function CarouselContent({ videos }: { videos: creatorVideoOutput | Promise<creatorVideoOutput> }) {
   const [xTranslation, setXTranslation] = useState(0);
 
   let resolvedVideos: creatorVideoOutput;
@@ -105,12 +113,7 @@ function VideosCarousel({ videos }: { videos: creatorVideoOutput | Promise<creat
           }}
         >
           {resolvedVideos.map((video) => {
-            return (
-              <VideoItem
-                key={video.id}
-                props={{ id: video.id, title: video.title, thumbnail: video.thumbnail }}
-              />
-            );
+            return <VideoItem key={video.id} props={video} />;
           })}
         </div>
       </div>

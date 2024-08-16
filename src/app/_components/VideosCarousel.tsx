@@ -24,11 +24,22 @@ const maxVideosAtBreakpoints: Record<Breakpoint, number> = {
 function VideosCarousel({ videos }: { videos: creatorVideoOutput | Promise<creatorVideoOutput> }) {
   return (
     <div className="w-full self-start">
-      <Suspense fallback={<CarouselContentPlaceHolder />}>
+      <Suspense
+        fallback={
+          <>
+            <CarouselHeader title="Loading..." />
+            <CarouselContentPlaceHolder />
+          </>
+        }
+      >
+        <CarouselHeader title={"Popular Videos"} />
         <CarouselContent videos={videos} />
       </Suspense>
     </div>
   );
+}
+function CarouselHeader({ title }: { title: string }) {
+  return <h2 className="p-3 text-3xl font-bold">{title}</h2>;
 }
 
 function CarouselContentPlaceHolder() {

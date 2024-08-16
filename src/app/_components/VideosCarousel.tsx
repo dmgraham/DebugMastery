@@ -23,13 +23,13 @@ const maxVideosAtBreakpoints: Record<Breakpoint, number> = {
 
 function VideosCarousel({ videos }: { videos: creatorVideoOutput | Promise<creatorVideoOutput> }) {
   return (
-    <Suspense fallback={<VideoContentPlaceholder />}>
+    <Suspense fallback={<CarouselContentPlaceHolder />}>
       <CarouselContent videos={videos} />
     </Suspense>
   );
 }
 
-function VideoContentPlaceholder() {
+function CarouselContentPlaceHolder() {
   return <div className=" mx-3 h-[250px] animate-pulse rounded-md bg-gray-700"></div>;
 }
 

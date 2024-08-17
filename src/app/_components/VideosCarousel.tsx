@@ -1,41 +1,127 @@
 "use client";
 import VideoItem from "./VideoItem";
+import useScreenWidth from "../utils/useScreenWidth";
+import getScreenBreakpoint, { Breakpoint } from "../utils/helper/getScreenBreakpoint";
+import { useState, use, Suspense } from "react";
+import { creatorVideoOutput } from "~/server/api/routers/creator";
 
-function VideosCarousel() {
+const maxVideosAtBreakpoints: Record<Breakpoint, number> = {
+  xs: 2, // 50.00%
+  sm: 2, // 50.00%
+  md: 3, // 33.33%
+  lg: 4, // 25%
+  xl: 5, // 20%
+  "2xl": 6, // 16.67%
+};
+
+function VideosCarousel({ videos }: { videos: creatorVideoOutput | Promise<creatorVideoOutput> }) {
   return (
     <div className="w-full self-start">
-      <h2 className="p-3 text-3xl font-bold">Popular Videos</h2>
+      <Suspense
+        fallback={
+          <>
+            <CarouselHeader title="Loading..." />
+            <CarouselContentPlaceHolder />
+          </>
+        }
+      >
+        <CarouselHeader title={"Popular Videos"} />
+        <CarouselContent videos={videos} />
+      </Suspense>
+    </div>
+  );
+}
+function CarouselHeader({ title }: { title: string }) {
+  return <h2 className="p-3 text-3xl font-bold">{title}</h2>;
+}
 
-      <div className="relative">
-        <button className="duration-50 absolute left-0 flex h-full w-[3%] items-center justify-center text-[transparent] transition-colors hover:bg-black/80 hover:text-white">
-          <svg width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
-            <path
-              fill-rule="evenodd"
-              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
-            />
-          </svg>
-        </button>
+function CarouselContentPlaceHolder() {
+  return <div className=" mx-3 h-[250px] animate-pulse rounded-md bg-gray-700"></div>;
+}
 
-        <button className="duration-50 absolute right-0 flex h-full w-[3%] items-center justify-center text-[transparent] transition-colors hover:bg-black/80 hover:text-white">
-          <svg width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
-            <path
-              fill-rule="evenodd"
-              d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"
-            />
-          </svg>
-        </button>
+function CarouselContent({ videos }: { videos: creatorVideoOutput | Promise<creatorVideoOutput> }) {
+  const [xTranslation, setXTranslation] = useState(0);
 
-        <div className="flex gap-2">
-          <VideoItem props={firstItem} />
-          <VideoItem props={secondItem} />
-          <VideoItem props={thirdItem} />
-          <VideoItem props={fourthItem} />
+  let resolvedVideos: creatorVideoOutput;
 
-          <VideoItem props={firstItem} />
-          <VideoItem props={secondItem} />
-          <VideoItem props={thirdItem} />
-          <VideoItem props={fourthItem} />
-        </div>
+  if (videos instanceof Promise) {
+    resolvedVideos = use(videos);
+  } else {
+    resolvedVideos = videos;
+  }
+
+  const screenWidth = useScreenWidth();
+  const totalItems = resolvedVideos.length;
+  const screenBreakpoint = getScreenBreakpoint(screenWidth);
+
+  const itemsOnScreenCount = maxVideosAtBreakpoints[screenBreakpoint];
+
+  const totalPadding = 17;
+  const itemWidth = (screenWidth - totalPadding) / itemsOnScreenCount;
+
+  const totalWidth = totalItems * itemWidth;
+  const maxWidth = totalWidth - itemWidth * itemsOnScreenCount;
+
+  function MoveCarouselRight() {
+    setXTranslation((previousXTranslation) => {
+      let updatedXTranslation = previousXTranslation + itemWidth;
+      //if user is at the last item, go back to 0 at the beginning
+      if (previousXTranslation >= maxWidth) {
+        updatedXTranslation = 0;
+      }
+
+      updatedXTranslation = Math.min(maxWidth, updatedXTranslation);
+      return updatedXTranslation;
+    });
+  }
+  function MoveCarouselLeft() {
+    setXTranslation((previousXTranslation) => {
+      let updatedXTranslation = previousXTranslation - itemWidth;
+      //if user is at the first item, go back to end of the list
+      if (previousXTranslation === 0) {
+        updatedXTranslation = maxWidth;
+      }
+
+      updatedXTranslation = Math.max(0, updatedXTranslation);
+      return updatedXTranslation;
+    });
+  }
+
+  return (
+    <div className="relative">
+      <button
+        className="duration-50 absolute left-0 z-10 flex h-full w-[3%] items-center justify-center text-[transparent] transition-colors hover:bg-black/80 hover:text-white"
+        onClick={MoveCarouselLeft}
+      >
+        <svg width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+          <path
+            fill-rule="evenodd"
+            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+          />
+        </svg>
+      </button>
+
+      <button
+        className="duration-50 absolute right-0 z-10 flex h-full w-[3%] items-center justify-center text-[transparent] transition-colors hover:bg-black/80 hover:text-white"
+        onClick={MoveCarouselRight}
+      >
+        <svg width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+          <path
+            fill-rule="evenodd"
+            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"
+          />
+        </svg>
+      </button>
+
+      <div
+        className="flex flex-1 gap-0 transition-transform duration-300"
+        style={{
+          transform: `translateX(-${xTranslation}px)`,
+        }}
+      >
+        {resolvedVideos.map((video) => {
+          return <VideoItem key={video.id} props={video} />;
+        })}
       </div>
     </div>
   );

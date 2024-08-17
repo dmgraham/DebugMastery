@@ -1,16 +1,9 @@
 "use client";
 import VideoItem from "./VideoItem";
-import mockdata from "./videoCarouselMockData";
 import useScreenWidth from "../utils/useScreenWidth";
 import getScreenBreakpoint, { Breakpoint } from "../utils/helper/getScreenBreakpoint";
 import { useState, use, Suspense } from "react";
 import { creatorVideoOutput } from "~/server/api/routers/creator";
-
-const firstItem = mockdata[0]!;
-const secondItem = mockdata[1]!;
-const thirdItem = mockdata[2]!;
-const fourthItem = mockdata[3]!;
-const finalItem = mockdata[4]!;
 
 const maxVideosAtBreakpoints: Record<Breakpoint, number> = {
   xs: 2, // 50.00%

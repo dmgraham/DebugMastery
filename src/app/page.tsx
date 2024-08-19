@@ -5,13 +5,10 @@ export default async function Home() {
     <main className="flex min-h-full flex-col items-center justify-center bg-gradient-to-b from-neutral-800 to-neutral-950">
       <div className="container flex flex-col items-center justify-center gap-24 px-4 py-16 ">
         <div className="flex flex-col items-center justify-center gap-4">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Debug Mastery
-          </h1>
+          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">Debug Mastery</h1>
 
           <h3 className="text-center text-2xl">
-            A website to highlight educational content creators for web
-            development.
+            A website to highlight educational content creators for web development.
           </h3>
         </div>
 

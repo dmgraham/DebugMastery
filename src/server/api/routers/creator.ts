@@ -46,4 +46,5 @@ export const creatorRouter = createTRPCRouter({
 
 type RouterOutput = inferRouterOutputs<typeof creatorRouter>;
 type creatorVideoOutput = RouterOutput["getCreatorVideos"];
-export type { creatorVideoOutput };
+type creator = RouterOutput["getCreator"];
+export type { creatorVideoOutput, creator };

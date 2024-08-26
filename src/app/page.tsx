@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+const CreatorProfileImageSize = 192;
 
 export default async function Home() {
   return (
@@ -13,20 +15,26 @@ export default async function Home() {
         </div>
 
         <div className="flex gap-10">
-          <img
-            className=" h-48 w-48 rounded-full border border-gray-500"
+          <Image
+            className="rounded-full border border-gray-500"
             src="https://utfs.io/f/f7ec4fab-c964-4936-bef4-472f482e29db-gonife.jpg"
             alt="Theo Browne"
+            width={CreatorProfileImageSize}
+            height={CreatorProfileImageSize}
           />
-          <img
-            className=" h-48 w-48  rounded-full border border-gray-500"
+          <Image
+            className="rounded-full border border-gray-500"
             src="https://utfs.io/f/99c98833-e3e4-4e7f-92dc-889535e1f162-envsqj.jpg"
             alt="Fireship.io"
+            width={CreatorProfileImageSize}
+            height={CreatorProfileImageSize}
           />
-          <img
-            className=" h-48 w-48 rounded-full border border-gray-500"
+          <Image
+            className="rounded-full border border-gray-500"
             src="https://utfs.io/f/11960624-972a-44c5-a0e0-2d11468c07d9-35m4pb.jpg"
             alt="Primeagen"
+            width={CreatorProfileImageSize}
+            height={CreatorProfileImageSize}
           />
         </div>
         <button className=" h-10 rounded-md bg-primary px-4 py-2 hover:bg-primary/85">

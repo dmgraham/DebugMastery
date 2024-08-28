@@ -1,5 +1,6 @@
 import VideosCarousel from "~/app/_components/VideosCarousel";
 import { api } from "~/trpc/server";
+import Image from "next/image";
 
 async function page({ params }: { params: { id: string } }) {
   const creatorID = parseInt(params.id);
@@ -10,9 +11,12 @@ async function page({ params }: { params: { id: string } }) {
     <div className="relative flex h-full flex-col items-center overflow-x-hidden">
       {/* bg image */}
       <div className="absolute top-0 z-[-10] h-[56.25vw] w-full">
-        <img
+        <Image
           className="absolute top-0 h-[56.25vw] w-full bg-cover object-cover opacity-35"
           src={creatorInfo.bannerImage}
+          alt={creatorInfo.name}
+          fill
+          sizes="100vw"
         />
         <div className="absolute bottom-0 h-[14.7vw] w-full bg-gradient-to-b from-transparent via-gray-800 to-black"></div>
         <p className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 text-center text-5xl text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
@@ -22,10 +26,12 @@ async function page({ params }: { params: { id: string } }) {
 
       <div className="pb-[30%]"></div>
       <VideosCarousel videos={creatorVideos} />
-      <img
+      <Image
         className="my-20 h-48 w-48 rounded-full border border-gray-500"
         src={creatorInfo.profileImage}
         alt={creatorInfo.name}
+        width={192}
+        height={192}
       />
 
       <h4 className="mb-3 text-3xl">About {creatorInfo.name}</h4>

@@ -1,9 +1,16 @@
 import { creatorVideoOutput as VideoType } from "~/server/api/routers/creator";
+import Image from "next/image";
 
 function VideoItem({ props }: { props: VideoType[number] }) {
   return (
     <div className="flex flex-[0_0_50.00%] flex-col gap-2 md:flex-[0_0_33.33%] lg:flex-[0_0_25.00%] xl:flex-[0_0_20.00%] 2xl:flex-[0_0_16.67%]">
-      <img className="aspect-video w-72" src={props.thumbnail} />
+      <Image
+        className="aspect-video w-72"
+        src={props.thumbnail}
+        alt={props.title}
+        width={288}
+        height={162}
+      />
 
       <div className="flex min-w-60 max-w-72 justify-between">
         <h3 className="line-clamp-3 w-full text-ellipsis pl-1">{props.title}</h3>

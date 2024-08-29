@@ -1,8 +1,8 @@
 import "~/styles/globals.css";
-
 import { GeistSans } from "geist/font/sans";
-
 import { TRPCReactProvider } from "~/trpc/react";
+import Link from "next/link";
+import getCreatorLink from "./utils/helper/getCreatorLink";
 
 export const metadata = {
   title: "Debug Mastery",
@@ -15,7 +15,9 @@ const developerNames = ["Theo - t3", "Fireship", "Primeagen"];
 function NavigationBar() {
   return (
     <nav className="text-md flex justify-between border-b-2 border-b-neutral-500 bg-neutral-900 p-4">
-      <div className="font-semibold">Debug Mastery</div>
+      <Link href="/">
+        <div className="font-semibold">Debug Mastery</div>
+      </Link>
       <div className="flex gap-3">
         {developerNames.map((devName, index) => {
           return <p key={index}>{devName}</p>;
@@ -25,11 +27,7 @@ function NavigationBar() {
   );
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>

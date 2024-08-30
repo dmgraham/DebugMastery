@@ -30,8 +30,8 @@ function NavigationBar() {
       <div className="flex gap-3">
         {developers.map((dev) => {
           return (
-            <Link href={getCreatorLink(dev.id)}>
-              <p key={dev.id}>{dev.name}</p>
+            <Link href={getCreatorLink(dev.id)} key={dev.id}>
+              <p>{dev.name}</p>
             </Link>
           );
         })}

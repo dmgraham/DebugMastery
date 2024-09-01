@@ -13,6 +13,7 @@ const maxVideosAtBreakpoints: Record<Breakpoint, number> = {
   xl: 5, // 20%
   "2xl": 6, // 16.67%
 };
+const totalPadding = 17;
 
 function VideosCarousel({ videos }: { videos: creatorVideoOutput | Promise<creatorVideoOutput> }) {
   return (
@@ -53,12 +54,8 @@ function CarouselContent({ videos }: { videos: creatorVideoOutput | Promise<crea
   const screenWidth = useScreenWidth();
   const totalItems = resolvedVideos.length;
   const screenBreakpoint = getScreenBreakpoint(screenWidth);
-
   const itemsOnScreenCount = maxVideosAtBreakpoints[screenBreakpoint];
-
-  const totalPadding = 17;
   const itemWidth = (screenWidth - totalPadding) / itemsOnScreenCount;
-
   const totalWidth = totalItems * itemWidth;
   const maxWidth = totalWidth - itemWidth * itemsOnScreenCount;
 

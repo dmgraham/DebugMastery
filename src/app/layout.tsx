@@ -25,7 +25,9 @@ function NavigationBar() {
   return (
     <nav className="text-md flex justify-between border-b-2 border-b-neutral-500 bg-neutral-900 p-4">
       <Link href="/">
-        <div className="border-2 border-transparent font-semibold">Debug Mastery</div>
+        <div className="border-2 border-transparent font-semibold hover:border-b-primary">
+          Debug Mastery
+        </div>
       </Link>
       <div className="flex gap-3">
         {developers.map((dev) => {

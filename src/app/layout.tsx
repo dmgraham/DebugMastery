@@ -23,7 +23,7 @@ const developers: developer[] = [
 
 function NavigationBar() {
   return (
-    <nav className="text-md flex justify-between border-b-2 border-b-neutral-500 bg-neutral-900 p-4">
+    <nav className="text-md z-50 flex justify-between border-b-2 border-b-neutral-500 bg-neutral-900 p-4">
       <Link href="/">
         <div className="border-2 border-transparent font-semibold hover:border-b-primary">
           Debug Mastery

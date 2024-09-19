@@ -23,15 +23,17 @@ const developers: developer[] = [
 
 function NavigationBar() {
   return (
-    <nav className="text-md flex justify-between border-b-2 border-b-neutral-500 bg-neutral-900 p-4">
+    <nav className="text-md z-50 flex justify-between border-b-2 border-b-neutral-500 bg-neutral-900 p-4">
       <Link href="/">
-        <div className="font-semibold">Debug Mastery</div>
+        <div className="border-2 border-transparent font-semibold hover:border-b-primary">
+          Debug Mastery
+        </div>
       </Link>
       <div className="flex gap-3">
         {developers.map((dev) => {
           return (
             <Link href={getCreatorLink(dev.id)} key={dev.id}>
-              <p>{dev.name}</p>
+              <p className="border-2 border-transparent hover:border-b-primary">{dev.name}</p>
             </Link>
           );
         })}
